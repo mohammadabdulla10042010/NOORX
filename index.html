@@ -1,1 +1,97 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOORX AI</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #090d18;
+  color: white;
+}
+header {
+  padding: 20px;
+  border-bottom: 1px solid #263149;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo { font-size: 25px; font-weight: bold; color: #8b9cff; }
+main {
+  max-width: 750px;
+  margin: 55px auto;
+  padding: 20px;
+  text-align: center;
+}
+h1 { font-size: 38px; }
+.subtitle { color: #aab4ca; line-height: 1.6; }
+.panel {
+  margin-top: 35px;
+  padding: 20px;
+  background: #121a2b;
+  border: 1px solid #293650;
+  border-radius: 18px;
+}
+textarea {
+  width: 100%;
+  min-height: 110px;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #394967;
+  background: #090f1e;
+  color: white;
+  font-size: 16px;
+  resize: vertical;
+}
+button {
+  margin-top: 12px;
+  padding: 13px 25px;
+  border: 0;
+  border-radius: 10px;
+  background: #667cff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+button:active { opacity: .8; }
+#reply { color: #b8c5e5; margin-top: 18px; }
+footer { color: #78849c; margin-top: 55px; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">✦ NOORX</div>
+  <div>AI PLATFORM</div>
+</header>
+<main>
+  <h1>Welcome to NOORX AI</h1>
+  <p class="subtitle">One platform. Many possibilities.<br>
+  Your AI journey starts here.</p>
+  <section class="panel">
+    <h2>AI Assistant</h2>
+    <p class="subtitle">Your personal AI workspace</p>
+    <textarea id="question" placeholder="Type your message..."></textarea>
+    <button onclick="sendMessage()">Send Message</button>
+    <p id="reply">NOORX AI is getting ready...</p>
+  </section>
+  <footer>NOORX AI · Version 1.0 · Built for everyone</footer>
+</main>
+<script>
+function sendMessage() {
+  const q = document.getElementById("question").value.trim();
+  const reply = document.getElementById("reply");
+  if (!q) {
+    reply.textContent = "Please type a message first.";
+    return;
+  }
+  reply.textContent = "Your message: " + q +
+    " — AI connection will be added in the next version.";
+}
+</script>
+</body>
+</html>
