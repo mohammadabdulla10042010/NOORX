@@ -83,7 +83,9 @@ footer { color: #78849c; margin-top: 55px; font-size: 13px; }
 </main>
 <script>
 function sendMessage() {
-  const NOORX_API_URL = "https://noorx-ai-api.mohammadabdulla10042010.workers.dev";
+  
+<script>
+const NOORX_API_URL = "https://noorx-ai-api.mohammadabdulla10042010.workers.dev";
 
 async function sendMessage() {
   const question = document.getElementById("question");
@@ -102,7 +104,9 @@ async function sendMessage() {
   try {
     const response = await fetch(NOORX_API_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ message })
     });
 
@@ -113,12 +117,15 @@ async function sendMessage() {
     }
 
     reply.textContent = data.reply || "No reply received.";
+
   } catch (error) {
     reply.textContent = "Connection error: " + error.message;
   } finally {
     button.disabled = false;
   }
-  }
+}
+</script>
+  
 }
 </script>
 </body>
