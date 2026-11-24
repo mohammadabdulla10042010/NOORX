@@ -1,19 +1,18 @@
-
-
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOORX AI</title>
-<style>
-* { box-sizing: border-box; }
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>NOORX AI</title><style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #090d18;
   color: white;
 }
+
 header {
   padding: 20px;
   border-bottom: 1px solid #263149;
@@ -21,22 +20,37 @@ header {
   justify-content: space-between;
   align-items: center;
 }
-.logo { font-size: 25px; font-weight: bold; color: #8b9cff; }
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  color: #8b9cff;
+}
+
 main {
   max-width: 750px;
   margin: 55px auto;
   padding: 20px;
   text-align: center;
 }
-h1 { font-size: 38px; }
-.subtitle { color: #aab4ca; line-height: 1.6; }
+
+h1 {
+  font-size: 38px;
+}
+
+.subtitle {
+  color: #aab4ca;
+  line-height: 1.6;
+}
+
 .panel {
   margin-top: 35px;
-  padding: 20px;
+  padding: 25px;
   background: #121a2b;
   border: 1px solid #293650;
   border-radius: 18px;
 }
+
 textarea {
   width: 100%;
   min-height: 110px;
@@ -48,49 +62,85 @@ textarea {
   font-size: 16px;
   resize: vertical;
 }
+
 button {
-  margin-top: 12px;
-  padding: 13px 25px;
+  margin-top: 15px;
+  padding: 14px 28px;
   border: 0;
   border-radius: 10px;
   background: #667cff;
   color: white;
   font-size: 16px;
   font-weight: bold;
+  cursor: pointer;
 }
-button:active { opacity: .8; }
-#reply { color: #b8c5e5; margin-top: 18px; }
-footer { color: #78849c; margin-top: 55px; font-size: 13px; }
-</style>
-</head>
-<body>
-<header>
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#reply {
+  color: #b8c5e5;
+  margin-top: 20px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+footer {
+  color: #78849c;
+  margin-top: 55px;
+  font-size: 13px;
+}
+
+@media(max-width:600px) {
+  h1 {
+    font-size: 29px;
+  }
+
+  main {
+    margin: 25px auto;
+  }
+}
+</style></head><body><header>
   <div class="logo">✦ NOORX</div>
   <div>AI PLATFORM</div>
-</header>
-<main>
-  <h1>Welcome to NOORX AI</h1>
-  <p class="subtitle">One platform. Many possibilities.<br>
-  Your AI journey starts here.</p>
-  <section class="panel">
-    <h2>AI Assistant</h2>
-    <p class="subtitle">Your personal AI workspace</p>
-    <textarea id="question" placeholder="Type your message..."></textarea>
-    <button onclick="sendMessage()">Send Message</button>
-    <p id="reply">NOORX AI is getting ready...</p>
-  </section>
-  <footer>NOORX AI · Version 1.0 · Built for everyone</footer>
-</main>
-<script>
-function sendMessage() {
-  
-<script>
-const NOORX_API_URL = "https://noorx-ai-api.mohammadabdulla10042010.workers.dev";
+</header><main>  <h1>Welcome to NOORX AI</h1>  <p class="subtitle">
+    One platform. Many possibilities.<br>
+    Your AI journey starts here.
+  </p>  <section class="panel"><h2>AI Assistant</h2>
+
+<p class="subtitle">
+  Your personal AI workspace
+</p>
+
+<textarea
+  id="question"
+  placeholder="Ask anything..."
+></textarea>
+
+<button type="button" id="sendButton">
+  Send Message
+</button>
+
+<p id="reply">
+  NOORX AI is ready. Ask me anything!
+</p>
+
+  </section>  <footer>
+    NOORX AI · Version 1.0 · Built for everyone
+  </footer></main><script>
+
+const NOORX_API_URL =
+"https://noorx-ai-api.mohammadabdulla10042010.workers.dev";
+
+const question = document.getElementById("question");
+const reply = document.getElementById("reply");
+const button = document.getElementById("sendButton");
 
 async function sendMessage() {
-  const question = document.getElementById("question");
-  const reply = document.getElementById("reply");
-  const button = document.querySelector("button");
+
   const message = question.value.trim();
 
   if (!message) {
@@ -102,31 +152,57 @@ async function sendMessage() {
   reply.textContent = "NOORX AI is thinking...";
 
   try {
+
     const response = await fetch(NOORX_API_URL, {
+
       method: "POST",
+
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ message })
+
+      body: JSON.stringify({
+        message: message
+      })
+
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error || "AI service error");
+      throw new Error(
+        data.error || "AI service error: " + response.status
+      );
     }
 
-    reply.textContent = data.reply || "No reply received.";
+    reply.textContent =
+      data.reply || "No reply received from AI.";
 
   } catch (error) {
-    reply.textContent = "Connection error: " + error.message;
+
+    console.error("NOORX ERROR:", error);
+
+    reply.textContent =
+      "Connection Error: " + error.message;
+
   } finally {
+
     button.disabled = false;
+
   }
+
 }
-</script>
-  
-}
-</script>
-</body>
+
+button.addEventListener("click", sendMessage);
+
+question.addEventListener("keydown", function(event) {
+
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    sendMessage();
+  }
+
+});
+
+</script></body>
 </html>
